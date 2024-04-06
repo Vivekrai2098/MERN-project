@@ -31,7 +31,12 @@ try {
     const userSchema = new mongoose.Schema({
         name: String,
         email: String,
-        password: String
+        password: String,
+        address: String,
+        address2: String,
+        zip: String,
+        city: String,
+        state: String
     });
     const User = new mongoose.model("User", userSchema)
 
@@ -83,6 +88,11 @@ try {
 
 
 
+
+
+
+
+
     // that is the json convert
     app.use(express.json())
 
@@ -117,6 +127,38 @@ catch (error) {
     console.log("error", error)
 
 }
+
+
+
+
+
+
+//that is form data
+app.post("/Client", async (req, res) => {
+    try {
+        const { email, password, address, address2, zip, city, state } = req.body;
+
+
+        // const access = new User({
+        //     email,
+        // });
+
+
+
+
+        // Save the user to the database
+        // await access.save();
+        res.send({ message: "Successfully registered our team contact soon !!!" });
+    } catch (error) {
+        console.error("Error creating user:", error);
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+});
+
+
+
+
+
 
 
 

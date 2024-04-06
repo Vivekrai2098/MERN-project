@@ -1,9 +1,17 @@
 import React, { useState } from 'react'
 import signup from './image/signup.jpg';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 // import axios from "axios";
+
+//ui alert
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 function Signup() {
+  const navigate = useNavigate(); // Initialize useNavigate hook  
+
   //register ....
   const [user, setUser] = useState({
     name: "",
@@ -28,13 +36,13 @@ function Signup() {
     if (name && email && password && (password === reEnterPassword)) {
       e.preventDefault();
       console.log(user);
-      
-      const response= await fetch(`http://localhost:4001/Signup`,{
-        method:"POST",
-        headers:{
-          'Content-Type':"application/json",
+
+      const response = await fetch(`http://localhost:4001/Signup`, {
+        method: "POST",
+        headers: {
+          'Content-Type': "application/json",
         },
-        body:JSON.stringify(user),
+        body: JSON.stringify(user),
       });
 
 
@@ -46,25 +54,29 @@ function Signup() {
           // If response is JSON, parse it as JSON
           const responseData = await response.json();
           console.log(responseData); // Log response data
-          alert(responseData.message); // Alert response data
+          toast(responseData.message); // Alert response data
+
+          navigate('/Login');
+
+
         } else {
           // If response is not JSON, treat it as text
           const responseText = await response.text();
           console.log(responseText); // Log response text
-          alert(responseText); // Alert response text
+          toast(responseText); // Alert response text
         }
-      } 
+      }
 
 
 
       // console.log(response);
-      
-      
+
+
 
 
     }
     else {
-      alert("invalid input")
+      toast("invalid input")
 
     }
 
@@ -86,12 +98,12 @@ function Signup() {
 
           <div className='mb-2'>
             <label htmlFor="text">Name</label>
-            <input type="text" name="name" value={user.name} placeholder='Enter Name' className='form-control' onChange={change} />
+            <input type="text" name="name" required value={user.name} placeholder='Enter Name' className='form-control' onChange={change} />
           </div>
 
           <div className='mb-2'>
             <label htmlFor="email">Email</label>
-            <input type="email" name="email" value={user.email} placeholder='Enter Email' className='form-control' onChange={change} />
+            <input type="email" name="email" required value={user.email} placeholder='Enter Email' className='form-control' onChange={change} />
           </div>
 
 
@@ -99,13 +111,13 @@ function Signup() {
 
           <div className='mb-2'>
             <label htmlFor="password">Password</label>
-            <input type="password" name='password' value={user.password} placeholder='Enter Password' className='form-control' onChange={change} />
+            <input type="password" name='password' required value={user.password} placeholder='Enter Password' className='form-control' onChange={change} />
           </div>
 
           {/* Reenter Password */}
           <div className='mb-2'>
             <label htmlFor="reEnterPassword">Re Enter Password</label>
-            <input type="password" name='reEnterPassword' value={user.reEnterPassword} placeholder='Re Enter Password' className='form-control' onChange={change} />
+            <input type="password" name='reEnterPassword' required value={user.reEnterPassword} placeholder='Re Enter Password' className='form-control' onChange={change} />
           </div>
 
 
