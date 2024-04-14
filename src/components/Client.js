@@ -2,9 +2,31 @@ import React, { useState } from 'react';
 import car33 from './image/car33.jpg';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Navigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css';
+import Pop from './Pop';
 
-function Client() {
+//update
+import {Modal, ModalHeader,ModalBody,Row} from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+import logo from './image/visa.png';
+import logo1 from './image/mastercard.png';
+import { useNavigate } from 'react-router-dom';
+ 
+
+//update
+// function report(){
+//     toast.success("Payment deduct");
+//     toast.success("Team reasponse soon");
+
+// }
+
+
+
+function Client({ history }) {
+    //update
+    const [showModal,setShowModal]=useState(false)
+
+
     const [user, setUser] = useState({
         email: "",
         password: "",
@@ -14,6 +36,7 @@ function Client() {
         state: "",
         zip: ""
     });
+    const navigate = useNavigate(); // Initialize useNavigate hook 
 
     const change = e => {
         const { name, value } = e.target;
@@ -24,6 +47,7 @@ function Client() {
     };
 
     const Book = async (e) => {
+        
         e.preventDefault();
         const { email, password, address, address2, city, state, zip } = user;
 
@@ -51,9 +75,18 @@ function Client() {
 
             // console.log(responseData); // Log response data
             toast(responseData.message); // Alert response data
-            if(response==="Successfully registered our team contact soon !!!"){
-                Navigate("/");
-            }
+
+            
+            // updated
+            toast.success("Payment deduct");
+            toast.success("Team reasponse soon");
+            navigate('/');
+            
+        
+          
+
+
+
         } catch (error) {
             console.error('Error:', error);
             toast("Error occurred while processing your request.");
@@ -83,6 +116,53 @@ function Client() {
                 <label htmlFor="inputAddress2">Address 2</label>
                 <input required type="text" className="form-control" id="inputAddress2" name="address2" onChange={change} value={user.address2} placeholder="Apartment, studio, or floor" />
             </div>
+            {/* updated field */}
+
+            <div className="form-group">
+                <label htmlFor="inputAddress2">Enter your Aadhar Card</label>
+                <input required type="text" className="form-control" id="inputAddress2" name="Aadhar" onChange={change} value={user.Aadhar} placeholder="Enter your Aadhar Card" />
+            </div>
+
+            <div className="form-group">
+                <label htmlFor="inputAddress2">Enter your Driving Licence </label>
+                <input required type="text" className="form-control" id="inputAddress2" name="Drving" onChange={change} value={user.Drving} placeholder="Enter your Driving Licence" />
+            </div>
+
+
+            <div className="form-group">
+                <label htmlFor="inputAddress2">Enter your Source </label>
+                <input required type="text" className="form-control" id="inputAddress2" name="Drving" onChange={change} value={user.Drving} placeholder="Enter your Source" />
+            </div>
+
+            <div className="form-group">
+                <label htmlFor="inputAddress2">Enter your Destination  </label>
+                <input required type="text" className="form-control" id="inputAddress2" name="Drving" onChange={change} value={user.Drving} placeholder="Enter your Destination"/>
+            </div>
+
+
+            {/* updated */}
+
+            <div className="form-row">
+                <div className="form-group col-md-6">
+                    <label htmlFor="inputCity">Departure Date</label>
+                    <input required type="date" value={user.city} name="Departure Date" onChange={change} className="form-control" id="inputCity" />
+                </div>
+
+                <div className="form-group col-md-6">
+                    <label htmlFor="inputCity">Return Plane</label>
+                    <input required type="date" value={user.city} name="return plane" onChange={change} className="form-control" id="inputCity" />
+                </div>
+
+
+                
+               
+            </div>
+
+
+
+
+
+
             <div className="form-row">
                 <div className="form-group col-md-6">
                     <label htmlFor="inputCity">City</label>
@@ -111,9 +191,107 @@ function Client() {
                     </label>
                 </div>
             </div>
-            <center><button type="submit" onClick={Book} className="btn btn-primary">BOOK !</button></center>
+            <center><button type="submit"  onClick={() => setShowModal(true)} className="btn btn-primary">BOOK !</button></center>
+            {/* updated */}
+                
+            <Modal size='lg' show={showModal} onHide={() => setShowModal(false)}>
+
+                    <ModalHeader  closeButton>
+                       <div>
+                      Payment Gatway 
+                       </div>
+
+
+                    </ModalHeader>
+
+                   
+                    <ModalBody>
+                        <form>
+                            <Row>
+                                <Col>
+                                <img src={logo} style={{width:"340px",paddingLeft:"100px"}} class="img-fluid mt-3"  alt="Login" width="500" height="500" />
+                                </Col>
+                                <Col>
+                                <img src={logo1} style={{width:"340px",paddingLeft:"100px"}} class="img-fluid mt-3"  alt="Login" width="500" height="500" />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col lg={12}>
+                                    <div style={{marginTop:"20px"}}>
+                                        <label htmlFor='name'>
+                                            Name On Card
+                                        </label>
+                                        <input type='text' className='form-control' placeholder='Name On Card'/>
+
+                                    </div>
+                                    
+
+                                </Col>
+                                
+                                <Col lg={6}>
+                                    <div style={{marginTop:"6px"}}>
+                                        <label htmlFor='name'>
+                                            Card Number
+                                        </label>
+                                        <input type='Number' className='form-control' placeholder='Card Number'/>
+
+                                    </div>
+                                    
+
+                                </Col>
+
+                                <Col lg={6}>
+                                    <div style={{marginTop:"6px"}}>
+                                        <label htmlFor='name'>
+                                            Expiry date
+                                        </label>
+                                        <input type='Number' className='form-control' placeholder='Expiry date'/>
+
+                                    </div>
+                                    
+
+                                </Col>
+
+                                <Col lg={6}>
+                                    <div style={{marginTop:"6px"}}>
+                                        <label htmlFor='name'>
+                                            Security Code
+                                        </label>
+                                        <input type='Number' className='form-control' placeholder='Name On Card'/>
+
+                                    </div>
+
+                                </Col>
+
+                                <Col lg={6}>
+                                    <div style={{marginTop:"6px"}}>
+                                        <label htmlFor='name' style={{fontWeight:'bold'}}>
+                                        Deducted Amount
+                                        </label >
+                                        <input style={{fontWeight:'bold', color:'green'}} type='text' readonly  value='500 ruppes' className='form-control'/>
+
+                                    </div>
+
+                                </Col>
+
+
+
+
+                                <button style={{marginTop:'20px',marginLeft:"10px"}} className="btn btn-primary" onClick={Book}>Pay</button>
+
+                            </Row>
+                        </form>
+                    </ModalBody>
+
+                    
+                </Modal>
+
+
         </form>
+        
+
     );
+
 }
 
 export default Client;

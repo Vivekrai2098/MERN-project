@@ -10,7 +10,7 @@ function About() {
           <Col lg={8} className="mx-auto">
             <h2 className="about-heading mb-4">Future of Cars</h2>
             <p className="about-content">
-            Title: The Growing Influence of Electric Cars on the Automotive Industry
+            The Growing Influence of Electric Cars on the Automotive Industry
 
 Electric cars have come a long way from being mere novelties to becoming significant players in the automotive industry. With advancements in battery technology, increased charging infrastructure, and growing consumer interest in sustainability, electric vehicles (EVs) are now poised to reshape the future of transportation.
 
